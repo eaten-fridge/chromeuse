@@ -5,6 +5,8 @@ def main():
     #as shown in 'PG1'
     PG1 = 'Driving Time Calculator'
     PG2 = 'Chess'
+    PG3 = 'placeholder'
+    
 
     print('Please choose a option from below.')
     #now its time to display the options
