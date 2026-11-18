@@ -7,6 +7,8 @@ def main():
     PG1 = 'Driving Time Calculator'
     PG2 = 'Chess (scuffed)'
     PG3 = 'Just Maybe'
+    PG4 = 'GDI Malware (Windows)'
+    PG5 = 'GDI Malware (Chrome) DOES NOT WORK!!!'
     
 
     print('Please choose a option from below.')
@@ -15,6 +17,8 @@ def main():
     #so far we only have 1 option, which is okay
     print('#2\t', PG2)
     print('#3\t', PG3)
+    print('#4\t', PG4)
+    print('#5\t', PG5)
     #time for the choice part of all of this
     choice = v.tg('|>')
     #v.tg is a number validator in a different place of the folder, therefore the import at the top (valid)
@@ -27,7 +31,14 @@ def main():
     elif choice == 3:
         print('Launching ', PG3, '...', sep = '')
         pg3()
-    elif choice > 3 or choice < 1:
+    elif choice == 4:
+        print ('Launching ', PG4, '...', sep = '')
+        pg4()
+    elif choice == 5:
+        print('Launching ', PG5, '...', sep = '')
+        print()
+        main()
+    elif choice > 5 or choice < 1:
         print('Please enter a valid number.')
         #literally just more validation just in case
 
@@ -152,7 +163,7 @@ def pg2():
     def display_board(board):
         print("\n")
         print(board)
-        print("\n  a b c d e f g h")
+        print("\na b c d e f g h")
         print("")
 
 
@@ -217,4 +228,99 @@ def pg3():
     print("so i tried to import chapter 7 exercises but it didn't exactly work so now im stuck with this lousy text string T_T")
     print()
     main()
+
+def pg4():
+    import win32con
+    import win32gui
+
+    import time
+
+    # Get device contexts for the screen or a window
+    hdc_dest = win32gui.GetDC(0)  # 0 corresponds to the desktop/screen DC
+    hdc_source = win32gui.GetDC(0)
+
+    # Parameters: (hdcDest, xDest, yDest, nWidth, nHeight, hdcSrc, xSrc, ySrc, nSrcWidth, nSrcHeight, dwRop)
+    while True:
+        win32gui.StretchBlt(
+            hdc_dest,  # Destination DC
+            0,
+            0,  # Destination x, y
+            1920,
+            1200,  # Destination width, height (scaled size)
+            hdc_source,  # Source DC
+            50,
+            50,  # Source x, y
+            1820,
+            1100,  # Source width, height
+            0x008800C6,  # Raster operation code
+        )
+        time.sleep(0.3)
+    
+
+    # Release DCs when done
+    win32gui.ReleaseDC(0, hdc_dest)
+    win32gui.ReleaseDC(0, hdc_source)
+
+def pg5():
+    pass
+    import mss
+    import pygame
+    import time
+
+    from PIL import Image
+
+    pygame.init()
+
+    WIDTH = 1920
+    HEIGHT = 1200
+
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Screen Stretch")
+
+    clock = pygame.time.Clock()
+
+    with mss.mss() as sct:
+
+        while True:
+
+            # Allow the window to close
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    raise SystemExit
+
+            # Capture the screen
+            screenshot = sct.grab(sct.monitors[1])
+
+            # Convert screenshot into a Pillow image
+            image = Image.frombytes(
+                "RGB",
+                screenshot.size,
+                screenshot.rgb
+            )
+
+            # Crop the screen
+            image = image.crop((
+                50,
+                50,
+                min(1870, image.width),
+                min(1150, image.height)
+            ))
+
+            # Stretch the cropped image
+            image = image.resize((WIDTH, HEIGHT))
+
+            # Convert to Pygame surface
+            surface = pygame.image.fromstring(
+                image.tobytes(),
+                image.size,
+                "RGB"
+            )
+
+            # Display image
+            screen.blit(surface, (0, 0))
+            pygame.display.flip()
+
+            clock.tick(3)
+
 main()
