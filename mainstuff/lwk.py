@@ -4,7 +4,7 @@ def main():
     #this is a menu interface for stuff that i make, like a Driver's Ed assistant
     #as shown in 'PG1'
     PG1 = 'Driving Time Calculator'
-    PG2 = 'Chess'
+    PG2 = 'Chess (scuffed)'
     PG3 = 'placeholder'
     
 
