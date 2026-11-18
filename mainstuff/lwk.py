@@ -1,11 +1,12 @@
 import sys
 import valid as v
+
 def main():
     #this is a menu interface for stuff that i make, like a Driver's Ed assistant
     #as shown in 'PG1'
     PG1 = 'Driving Time Calculator'
     PG2 = 'Chess (scuffed)'
-    PG3 = 'placeholder'
+    PG3 = 'Just Maybe'
     
 
     print('Please choose a option from below.')
@@ -13,6 +14,7 @@ def main():
     print('#1:\t', PG1)
     #so far we only have 1 option, which is okay
     print('#2\t', PG2)
+    print('#3\t', PG3)
     #time for the choice part of all of this
     choice = v.tg('|>')
     #v.tg is a number validator in a different place of the folder, therefore the import at the top (valid)
@@ -22,7 +24,10 @@ def main():
     elif choice == 2:
         print('Launching ', PG2, '...', sep = '')
         pg2()
-    elif choice > 2 or choice < 1:
+    elif choice == 3:
+        print('Launching ', PG3, '...', sep = '')
+        pg3()
+    elif choice > 3 or choice < 1:
         print('Please enter a valid number.')
         #literally just more validation just in case
 
@@ -206,4 +211,10 @@ def pg2():
         main()
 
     play_chess()
+
+def pg3():
+    print()
+    print("so i tried to import chapter 7 exercises but it didn't exactly work so now im stuck with this lousy text string T_T")
+    print()
+    main()
 main()
